@@ -1,28 +1,61 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div v-if="isAuthResolved" id="app">
+    <TheNavbar />
+    <div class="wrapper-page">
+    <router-view />
+    </div>
+    <TheFooter />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import TheNavbar from '@/components/shared/TheNavbar'
+import TheFooter from '@/components/shared/TheFooter'
 export default {
-  name: 'App',
+  name: 'app',
   components: {
-    HelloWorld
-  }
+    TheNavbar,
+    TheFooter
+  },
+  computed: {
+   isAuthResolved () {
+     return this.$store.state.auth.isAuthResolved
+   }
+  },
 }
 </script>
 
-<style>
+<style lang="scss">
+@import 'assets/css/spacing.css';
+@import '~bulma/bulma.sass';
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+.wrapper-page {
+  min-height: 45vh;
+}
+.bold {
+  font-weight: bold;
+}
+.cover {
+  background-size: cover;
+  /*background-position: center;*/
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.hero {
+  position: relative;
+}
+.hero-body {
+  padding: 3rem 1.5rem;
+}
+.hero-bg {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1531263060782-b024de9b9793?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 </style>
